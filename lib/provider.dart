@@ -22,10 +22,12 @@ class HiveProvider with ChangeNotifier {
 
   Future<void> writeModel2() async {
     _counter = _counter + 1;
+
     var _object = Model2(id: counter, name: 'Name $counter');
     var _m1 = model1Box.values.last;
-    model2Box.add(_object);
     var _m2List = HiveList<Model2>(model2Box, objects: _m1.list);
+
+    model2Box.add(_object);
     _m2List.add(_object);
     model1Box.put(_m1.key, Model1(id: _m1.id, list: _m2List));
 
