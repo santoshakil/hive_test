@@ -32,45 +32,47 @@ class Main extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: _provider.writeModel1,
-              child: Text('Write Model 1'),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ElevatedButton(
-              onPressed: _provider.writeModel2,
-              child: Text('Write Model 2 List'),
-            ),
-          ),
-          Column(
-            children: [
-              Text(
-                'Model 1 Length: ' +
-                    _provider.model1Box.values.length.toString(),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: _provider.writeModel1,
+                child: Text('Write Model 1'),
               ),
-              Text(
-                'Model 2 Length: ' +
-                    _provider.model2Box.values.length.toString(),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ElevatedButton(
+                onPressed: _provider.writeModel2,
+                child: Text('Write Model 2 List'),
               ),
-            ],
-          ),
-          _provider.model1Box.isNotEmpty
-              ? ListView.builder(
-                  shrinkWrap: true,
-                  itemCount: _provider.model1Box.values.first.list!.length,
-                  itemBuilder: (_, i) =>
-                      Text(_provider.model1Box.values.first.list![i].name!),
-                )
-              : SizedBox.shrink(),
-        ],
+            ),
+            Column(
+              children: [
+                Text(
+                  'Model 1 Length: ' +
+                      _provider.model1Box.values.length.toString(),
+                ),
+                Text(
+                  'Model 2 Length: ' +
+                      _provider.model2Box.values.length.toString(),
+                ),
+              ],
+            ),
+            _provider.model1Box.isNotEmpty
+                ? ListView.builder(
+                    shrinkWrap: true,
+                    physics: NeverScrollableScrollPhysics(),
+                    itemCount: 10, //_provider.model1BoxValues.length,
+                    itemBuilder: (_, i) =>
+                        Text(_provider.model1BoxValues[i].name!),
+                  )
+                : SizedBox.shrink(),
+          ],
+        ),
       ),
     );
   }
